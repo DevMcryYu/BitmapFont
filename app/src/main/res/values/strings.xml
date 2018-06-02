@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Smart Tag</string>
+    <string name="info">info</string>
+    <string name="ipAddress">127.0.0.1</string>
+    <string name="MAC">00:00:00:00:00:00</string>
+    <string name="mac">MAC地址:</string>
+    <string name="ip">IP地址:</string>
+    <string name="username">无名氏</string>
+    <string name="name">姓名:</string>
+    <string name="display">Display</string>
+    <string name="refresh">刷新</string>
+    <string name="this_is_menu">THIS IS MENU</string>
+</resources>
