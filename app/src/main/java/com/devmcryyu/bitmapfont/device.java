@@ -10,6 +10,7 @@ public class device {
     private String ipAddress;
     private String MAC;
     private boolean status;
+    private String content;
 
     public device() {
         new device("0.0.0.0", "00:00:00:00:00:00", OFFLINE);
@@ -19,6 +20,7 @@ public class device {
         this.ipAddress = ipAddress;
         this.MAC = mac;
         this.status = status;
+        this.content="无名氏";
     }
 
     public String getMAC() {
@@ -47,5 +49,13 @@ public class device {
 
     public String toString() {
         return "设备IP: " + this.getIpAddress() + " 设备MAC: " + this.getMAC() + " 当前状态: " + (this.getStatus() ? "在线" : "离线");
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

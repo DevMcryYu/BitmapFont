@@ -10,4 +10,8 @@
     <string name="display">Display</string>
     <string name="refresh">刷新</string>
     <string name="this_is_menu">THIS IS MENU</string>
+    <string name="display_all">Display All</string>
+    <string name="about">About</string>
+    <string name="origin_teamwork">Origin Teamwork</string>
+    <string name="designed_by_devmcryyu">Designed by DevMcryYu</string>
 </resources>

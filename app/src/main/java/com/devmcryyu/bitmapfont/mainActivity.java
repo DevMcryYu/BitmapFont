@@ -2,7 +2,9 @@ package com.devmcryyu.bitmapfont;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -29,6 +31,7 @@ public class mainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     public Context mContext;
     RecyclerView recyclerView;
+    NavigationView navigationView;
     DeviceAdapter adapter;
     IPUtils mIPUtils;
     public bitmapFont bitmapFont;
@@ -49,6 +52,23 @@ public class mainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.menu);
         }
+        navigationView=findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);                                                   //修改默认NavigationView图标颜色
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                mDrawerLayout.closeDrawers();
+                switch (item.getItemId()){
+                    case R.id.sendAll:
+                        Toast.makeText(mContext,"你点击了"+item.getTitle(),Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.about:
+                        Toast.makeText(mContext,"你点击了"+item.getTitle(),Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
         mIPUtils = new IPUtils();
         mIPUtils.setOnScanListener(new IPUtils.OnScanListener() {
             @Override
@@ -73,7 +93,6 @@ public class mainActivity extends AppCompatActivity {
     }
 
     private void refresh() {
-        //TODO:更新列表设备状态 2018/5/10
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -100,7 +119,7 @@ public class mainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mIPUtils.startScan();
+//        mIPUtils.startScan();
     }
 
     @Override
@@ -113,12 +132,11 @@ public class mainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                //打开菜单
+//                Toast.makeText(this,"打开菜单",Toast.LENGTH_SHORT).show();
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
             case R.id.refresh:
-                //TODO 显示提示窗口
-                Toast.makeText(this, "刷新列表", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "刷新列表", Toast.LENGTH_SHORT).show();
                 refresh();
 
         }

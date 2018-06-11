@@ -28,6 +28,7 @@ import java.util.Map;
 public class IPUtils {
     private Handler mHandler = new Handler(Looper.getMainLooper());//获取主线程的Looper
     private OnScanListener listener;
+    String substring;
 
     /**
      * 获取局域网中的 存在的ip地址及对应的mac
@@ -39,8 +40,10 @@ public class IPUtils {
 
         //获取本机所在的局域网地址
         String hostIP = getHostIP();
+        Log.i(mainActivity.TAG,"本机IP: "+hostIP);
         int lastIndexOf = hostIP.lastIndexOf(".");
-        final String substring = hostIP.substring(0, lastIndexOf + 1);
+        substring = hostIP.substring(0, lastIndexOf + 1);
+        Log.i(mainActivity.TAG,substring+"1");
         //创建线程池
         //        final ExecutorService fixedThreadPool = Executors.newFixedThreadPool(20);
         new Thread(new Runnable() {
@@ -52,7 +55,7 @@ public class IPUtils {
                     socket = new DatagramSocket();
                     int position = 2;
                     while (position < 255) {
-                        Log.e("IPUtils", "run: udp-" + substring + position);
+                        Log.e(mainActivity.TAG, "run: udp-" + substring + position);
                         dp.setAddress(InetAddress.getByName(substring + String.valueOf(position)));
                         socket.send(dp);
                         position++;
@@ -86,6 +89,8 @@ public class IPUtils {
                     String line;
                     while ((line = reader.readLine()) != null) {
                         Log.e(mainActivity.TAG, "run: " + line);
+                        if(line.contains(substring+"1"))//跳过广播地址
+                            continue;
                         if (!line.contains("00:00:00:00:00:00") && !line.contains("IP")) {
                             String[] split = line.split("\\s+");
                             map.put(split[3], split[0]);
@@ -133,7 +138,7 @@ public class IPUtils {
                 }
             }
         } catch (SocketException e) {
-            Log.i("Exception : ", "SocketException");
+            Log.i(mainActivity.TAG, "SocketException");
             e.printStackTrace();
         }
         return hostIp;

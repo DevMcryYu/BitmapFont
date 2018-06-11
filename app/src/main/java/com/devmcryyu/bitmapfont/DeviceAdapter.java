@@ -57,6 +57,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
                     public void run() {
                         //TODO: 发送信息
                         try {
+                            device.setContent(holder.userName.getText().toString());
                             byte[][] content=new bitmapFont(mContext).toBitmapFont(holder.userName.getText().toString());
                             Log.i(mainActivity.TAG,"向"+device.getIpAddress()+"发送数据");
                             sendUtils.sendBitMapFontBySocket(new Socket(device.getIpAddress(),333),content);
@@ -75,6 +76,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         device device=mDeviceList.get(position);
         holder.deviceMAC.setText(device.getMAC());
         holder.deviceIP.setText(device.getIpAddress());
+        holder.userName.setText(device.getContent());
     }
 
     @Override
